@@ -25,7 +25,7 @@ public class Task1Test {
     void getTimeFromIncorrectString(String time) {
         // Arrange in parameters
         // Act
-        long timeInSeconds = Task1.GetVideoLengthSeconds(time);
+        long timeInSeconds = Task1.minutesToSeconds(time);
 
         // Assert
         assertThat(timeInSeconds).isEqualTo(-1);
@@ -46,7 +46,7 @@ public class Task1Test {
     void getTimeFromCorrectString(String time, long expectedResult) {
         // Arrange in parameters
         // Act
-        long timeInSeconds = Task1.GetVideoLengthSeconds(time);
+        long timeInSeconds = Task1.minutesToSeconds(time);
 
         // Assert
         assertThat(timeInSeconds).isEqualTo(expectedResult);

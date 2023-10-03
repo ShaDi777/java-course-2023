@@ -10,7 +10,7 @@ public final class Task1 {
     private Task1() {
     }
 
-    public static long GetVideoLengthSeconds(String time) {
+    public static long minutesToSeconds(String time) {
         Objects.requireNonNull(time);
         LOGGER.trace("Decoding time in seconds from " + time);
         LOGGER.trace("Time matches regex? " + time.matches("\\d\\d+:\\d\\d"));
