@@ -15,7 +15,10 @@ public class Task6Test {
             Arguments.of(1234, 3),
             Arguments.of(1001, 4),
             Arguments.of(1337, 6),
-            Arguments.of(6174, 0)
+            Arguments.of(6174, 0),
+            Arguments.of(0, -1),
+            Arguments.of(8888, -1),
+            Arguments.of(99999, -1)
         );
     }
 
