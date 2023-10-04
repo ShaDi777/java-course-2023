@@ -4,7 +4,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 public class Task5Test {
     @ParameterizedTest
     @ValueSource(longs = {11, 123, 3140, 11211230, 13001120, 23336014})

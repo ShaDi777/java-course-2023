@@ -3,14 +3,14 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public final class Task5 {
     private final static Logger LOGGER = LogManager.getLogger();
 
     private Task5() {
     }
 
-    public static boolean isPalindromeDescendant(long num) {
+    public static boolean isPalindromeDescendant(long n) {
+        long num = n;
         while (num >= 10) {
             LOGGER.trace("NUM: " + num);
             String numString = String.valueOf(num);

@@ -15,6 +15,7 @@ public final class Main {
         // Press Alt+Enter with your caret at the highlighted text to see how
         // IntelliJ IDEA suggests fixing it.
         LOGGER.info("Привет, мир!");
+        LOGGER.info(Integer.toBinaryString(-1));
 
         // Press Shift+F10 or click the green arrow button in the gutter to run the code.
         for (int i = 0; i <= 2; i++) {

@@ -1,10 +1,9 @@
 package edu.hw1;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task2Test {
@@ -21,6 +20,7 @@ public class Task2Test {
             Arguments.of(-1234, 4)
         );
     }
+
     @ParameterizedTest
     @MethodSource("paramsNumsWithResults")
     void getTimeFromCorrectString(long num, int expectedResult) {

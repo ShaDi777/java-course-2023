@@ -1,10 +1,10 @@
 package edu.hw1;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task1Test {
@@ -31,7 +31,6 @@ public class Task1Test {
         assertThat(timeInSeconds).isEqualTo(-1);
     }
 
-
     private static Stream<Arguments> paramsCorrectStringWithResults() {
         return Stream.of(
             Arguments.of("00:00", 0),
@@ -41,6 +40,7 @@ public class Task1Test {
             Arguments.of("999:59", 59999)
         );
     }
+
     @ParameterizedTest
     @MethodSource("paramsCorrectStringWithResults")
     void getTimeFromCorrectString(String time, long expectedResult) {

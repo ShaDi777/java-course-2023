@@ -6,7 +6,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 public class Task6Test {
     private static Stream<Arguments> paramsKaprekarNumbers() {
         return Stream.of(
@@ -19,6 +18,7 @@ public class Task6Test {
             Arguments.of(6174, 0)
         );
     }
+
     @ParameterizedTest
     @MethodSource("paramsKaprekarNumbers")
     void testKaprekarNumber(int num, int expectedResult) {

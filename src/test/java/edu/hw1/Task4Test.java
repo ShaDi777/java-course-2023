@@ -1,11 +1,10 @@
 package edu.hw1;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 
 public class Task4Test {
     private static Stream<Arguments> paramsBrokenAndFixedStrings() {
@@ -18,6 +17,7 @@ public class Task4Test {
             Arguments.of("Русские буквы.", "уРссик еубвк.ы")
         );
     }
+
     @ParameterizedTest
     @MethodSource("paramsBrokenAndFixedStrings")
     void checkNotNestedArrays(String broken, String expectedFix) {
