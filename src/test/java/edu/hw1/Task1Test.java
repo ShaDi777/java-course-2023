@@ -1,17 +1,34 @@
 package edu.hw1;
 
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 
 public class Task1Test {
+    @Test
+    void getTimeFromNull() {
+        // Arrange
+        String time = null;
+
+        // Act
+        Throwable thrown = catchThrowable(() -> Task1.minutesToSeconds(time));
+
+        // Assert
+        assertThat(thrown).isInstanceOf(NullPointerException.class);
+    }
 
     @ParameterizedTest
     @ValueSource(
         strings = {
+            "NotTimeString",
+            "Просто текст",
+            "100",
+            "!@#$%^&",
             ":",
             "0:0",
             "12:",

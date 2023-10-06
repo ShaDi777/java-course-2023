@@ -14,8 +14,8 @@ public final class Task1 {
 
     public static long minutesToSeconds(String time) {
         Objects.requireNonNull(time);
-        LOGGER.trace("Decoding time in seconds from " + time);
-        LOGGER.trace("Time matches regex? " + matchesFormat(time));
+        LOGGER.trace("Decoding time in seconds from {}", time);
+        LOGGER.trace("Time matches regex? {}", matchesFormat(time));
 
         if (!matchesFormat(time)) {
             return -1;

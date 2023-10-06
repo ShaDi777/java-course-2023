@@ -6,7 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task5Test {
     @ParameterizedTest
-    @ValueSource(longs = {11, 123, 3140, 11211230, 13001120, 23336014})
+    @ValueSource(longs = {-5106, -101, 11, 123, 3140, 11211230, 13001120, 23336014})
     void testPalindromes(long num) {
         // Arrange in parameters
         // Act
@@ -17,7 +17,7 @@ public class Task5Test {
     }
 
     @ParameterizedTest
-    @ValueSource(longs = {0, 1, 12, 124, 1211})
+    @ValueSource(longs = {-1, 0, 1, 12, 124, 1211})
     void testNotPalindromes(long num) {
         // Arrange in parameters
         // Act

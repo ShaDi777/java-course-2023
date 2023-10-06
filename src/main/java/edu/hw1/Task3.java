@@ -1,6 +1,5 @@
 package edu.hw1;
 
-import java.util.Arrays;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,11 +22,19 @@ public final class Task3 {
             return false;
         }
 
-        long minArr1 = Arrays.stream(arr1).min().getAsLong();
-        long maxArr1 = Arrays.stream(arr1).max().getAsLong();
+        long minArr1 = arr1[0];
+        long maxArr1 = arr1[0];
+        for (long elem : arr1) {
+            minArr1 = Math.min(minArr1, elem);
+            maxArr1 = Math.max(maxArr1, elem);
+        }
 
-        long minArr2 = Arrays.stream(arr2).min().getAsLong();
-        long maxArr2 = Arrays.stream(arr2).max().getAsLong();
+        long minArr2 = arr2[0];
+        long maxArr2 = arr2[0];
+        for (long elem : arr2) {
+            minArr2 = Math.min(minArr2, elem);
+            maxArr2 = Math.max(maxArr2, elem);
+        }
 
         return (minArr1 > minArr2) && (maxArr1 < maxArr2);
     }
