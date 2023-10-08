@@ -15,6 +15,10 @@ public class Session {
     private final Set<Character> usedLetters;
 
     public Session(@NotNull String answer, int maxAttempts) {
+        if (!answer.matches("\\pL+")) {
+            throw new IllegalArgumentException("Word must contain only alphabetic characters!");
+        }
+
         this.answer = answer;
         this.maxAttempts = maxAttempts;
 
