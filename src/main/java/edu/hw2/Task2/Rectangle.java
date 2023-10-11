@@ -1,6 +1,7 @@
 package edu.hw2.Task2;
 
 public class Rectangle {
+    public static Builder builder = new Builder();
     private final int width;
     private final int height;
 
@@ -18,15 +19,29 @@ public class Rectangle {
         this.height = height;
     }
 
-    public final Rectangle setWidth(int width) {
-        return new Rectangle(width, this.height);
-    }
-
-    public final Rectangle setHeight(int height) {
-        return new Rectangle(this.width, height);
-    }
-
     public double area() {
         return width * height;
+    }
+
+    public static class Builder {
+        private int width = 0;
+        private int height = 0;
+
+        public Builder withWidth(int width) {
+            this.width = width;
+            return this;
+        }
+
+        public Builder withHeight(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Rectangle build() {
+            Rectangle result = new Rectangle(width, height);
+            width = 0;
+            height = 0;
+            return result;
+        }
     }
 }

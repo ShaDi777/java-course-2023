@@ -8,6 +8,7 @@ import java.util.Random;
 public class DefaultConnectionManager implements ConnectionManager {
     private final double errorRate;
     private final int faultyConnectionErrorFreq;
+    private final Random random;
 
     public DefaultConnectionManager(double errorRate, int faultyConnectionErrorFreq) {
         if (errorRate > 1 || errorRate < 0) {
@@ -16,11 +17,12 @@ public class DefaultConnectionManager implements ConnectionManager {
 
         this.errorRate = errorRate;
         this.faultyConnectionErrorFreq = faultyConnectionErrorFreq;
+        this.random = new Random();
     }
 
     @Override
     public Connection getConnection() {
-        return new Random().nextDouble() >= errorRate
+        return random.nextDouble() >= errorRate
                 ? new FaultyConnection(faultyConnectionErrorFreq)
                 : new StableConnection();
     }

@@ -20,27 +20,21 @@ public class Task2Test {
     @ParameterizedTest
     @MethodSource("rectangles")
     void rectangleAreaTest(Rectangle rect) {
-        rect = rect.setWidth(20);
-        rect = rect.setHeight(10);
+        rect = Rectangle.builder.withWidth(20).withHeight(10).build();
 
         assertThat(rect.area()).isEqualTo(200.0);
     }
 
     @Test
     void squareResizeTest() {
-        Square square = new Square();
-
-        square = square.setSideSize(10);
+        Square square = Square.builder.withSideSize(10).build();
 
         assertThat(square.area()).isEqualTo(100.0);
     }
 
     @Test
     void rectangleResizeTest() {
-        Rectangle rectangle = new Rectangle();
-
-        rectangle = rectangle.setHeight(100);
-        rectangle = rectangle.setWidth(1);
+        Rectangle rectangle = Rectangle.builder.withWidth(1).withHeight(100).build();
 
         assertThat(rectangle.area()).isEqualTo(100.0);
     }

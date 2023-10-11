@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 public class FaultyConnection implements Connection {
     private final static Logger LOGGER = LogManager.getLogger();
+    private final static int WITHOUT_ERRORS = 0;
+
     private final int errorFreq;
     private int attempts = 0;
 
@@ -16,7 +18,7 @@ public class FaultyConnection implements Connection {
     @Override
     public void execute(String command) {
         attempts++;
-        if (errorFreq != 0 && attempts % errorFreq == 0) {
+        if (errorFreq != WITHOUT_ERRORS && attempts % errorFreq == 0) {
             throw new ConnectionException("Could not execute: " + command);
         }
 
