@@ -1,7 +1,7 @@
 package edu.project2;
 
 import edu.project2.Entities.Maze;
-import edu.project2.Exceptions.IllegalPathEndpoints;
+import edu.project2.Exceptions.IllegalPathEndpointsException;
 import edu.project2.Models.Cell;
 import edu.project2.Models.Coordinate;
 import edu.project2.Services.Solvers.BfsSolver;
@@ -127,10 +127,10 @@ public class SolverTest {
 
         // Act
         // Assert
-        assertThrows(IllegalPathEndpoints.class, () -> solver.solve(maze, startInWall, endNormal));
-        assertThrows(IllegalPathEndpoints.class, () -> solver.solve(maze, startOutOfBounce, endNormal));
-        assertThrows(IllegalPathEndpoints.class, () -> solver.solve(maze, startNormal, endInWall));
-        assertThrows(IllegalPathEndpoints.class, () -> solver.solve(maze, startNormal, endOutOfBounce));
+        assertThrows(IllegalPathEndpointsException.class, () -> solver.solve(maze, startInWall, endNormal));
+        assertThrows(IllegalPathEndpointsException.class, () -> solver.solve(maze, startOutOfBounce, endNormal));
+        assertThrows(IllegalPathEndpointsException.class, () -> solver.solve(maze, startNormal, endInWall));
+        assertThrows(IllegalPathEndpointsException.class, () -> solver.solve(maze, startNormal, endOutOfBounce));
     }
 
     @Test

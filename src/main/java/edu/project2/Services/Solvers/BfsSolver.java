@@ -1,7 +1,7 @@
 package edu.project2.Services.Solvers;
 
 import edu.project2.Entities.Maze;
-import edu.project2.Exceptions.IllegalPathEndpoints;
+import edu.project2.Exceptions.IllegalPathEndpointsException;
 import edu.project2.Models.Cell;
 import edu.project2.Models.Coordinate;
 import java.util.ArrayDeque;
@@ -37,7 +37,7 @@ public class BfsSolver implements Solver {
             || !validPosition(end.row(), end.col(), maze.getHeight(), maze.getWidth())
             || maze.getGrid()[start.row()][start.col()].type() == Cell.Type.WALL
             || maze.getGrid()[end.row()][end.col()].type() == Cell.Type.WALL) {
-            throw new IllegalPathEndpoints();
+            throw new IllegalPathEndpointsException();
         }
 
         Map<Coordinate, List<Coordinate>> paths = new HashMap<>();
