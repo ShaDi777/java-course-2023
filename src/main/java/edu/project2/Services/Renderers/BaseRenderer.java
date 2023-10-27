@@ -8,24 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PrettyRenderer implements Renderer {
+public abstract class BaseRenderer implements Renderer {
     private static final char EMPTY_CELL = ' ';
     private static final char NEW_LINE = '\n';
     private final char wall;
     private final char pathCell;
 
-    public PrettyRenderer() {
-        this(false);
-    }
-
-    public PrettyRenderer(boolean useUnicodeSymbols) {
-        if (useUnicodeSymbols) {
-            wall = '█';
-            pathCell = '✓';
-        } else {
-            wall = '#';
-            pathCell = '*';
-        }
+    public BaseRenderer(char wallCell, char pathCell) {
+        this.wall = wallCell;
+        this.pathCell = pathCell;
     }
 
     @Override

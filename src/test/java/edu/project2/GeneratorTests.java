@@ -22,7 +22,7 @@ public class GeneratorTests {
 
     @ParameterizedTest
     @MethodSource("paramGenerator")
-    void Generator_ShouldThrow_WhenSizeIncorrect(Generator generator) {
+    void generator_ShouldThrow_WhenSizeIncorrect(Generator generator) {
         // Arrange
         int heightNormal = 10;
         int widthNormal = 10;
@@ -48,7 +48,7 @@ public class GeneratorTests {
 
     @ParameterizedTest
     @MethodSource("paramGenerator")
-    void Generator_ShouldReturnMazeWithBorders_WhenCorrectArguments(Generator generator) {
+    void generator_ShouldReturnMazeWithBorders_WhenCorrectArguments(Generator generator) {
         // Arrange
         int height = 15;
         int width = 10;
@@ -66,7 +66,14 @@ public class GeneratorTests {
                 assertThat(maze.getGrid()[row][col].col()).isEqualTo(col);
                 if (row == 0 || row == height - 1
                     || col == 0 || col == width - 1) {
-                    assertThat(maze.getGrid()[row][col].type()).isEqualTo(Cell.Type.WALL);
+                    var expectedType = Cell.Type.WALL;
+                    if (maze.getStart().row() == row && maze.getStart().col() == col) {
+                        expectedType = Cell.Type.PASSAGE;
+                    }
+                    if (maze.getEnd().row() == row && maze.getEnd().col() == col) {
+                        expectedType = Cell.Type.PASSAGE;
+                    }
+                    assertThat(maze.getGrid()[row][col].type()).isEqualTo(expectedType);
                 }
             }
         }

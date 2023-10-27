@@ -3,8 +3,9 @@ package edu.project2;
 import edu.project2.Entities.Maze;
 import edu.project2.Models.Cell;
 import edu.project2.Models.Coordinate;
-import edu.project2.Services.Renderers.PrettyRenderer;
+import edu.project2.Services.Renderers.AsciiRenderer;
 import edu.project2.Services.Renderers.Renderer;
+import edu.project2.Services.Renderers.UnicodeRenderer;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +17,7 @@ public class RendererTest {
     @Test
     void asciiRendererTest() {
         // Arrange
-        Renderer renderer = new PrettyRenderer(false);
+        Renderer renderer = new AsciiRenderer();
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w, w, w},
@@ -24,7 +25,9 @@ public class RendererTest {
                 {w, p, p, p, w},
                 {w, p, p, p, w},
                 {w, w, w, w, w},
-            }
+            },
+            new Coordinate(1,1),
+            new Coordinate(1, 1)
         );
         String expectedRender =
             """
@@ -45,7 +48,7 @@ public class RendererTest {
     @Test
     void asciiRendererWithPathTest() {
         // Arrange
-        Renderer renderer = new PrettyRenderer(false);
+        Renderer renderer = new AsciiRenderer();
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w, w, w},
@@ -53,7 +56,9 @@ public class RendererTest {
                 {w, p, p, p, w},
                 {w, p, p, p, w},
                 {w, w, w, w, w},
-            }
+            },
+            new Coordinate(1,1),
+            new Coordinate(1, 1)
         );
         List<Coordinate> path = List.of(
             new Coordinate(1, 1),
@@ -81,7 +86,7 @@ public class RendererTest {
     @Test
     void unicodeRendererTest() {
         // Arrange
-        Renderer renderer = new PrettyRenderer(true);
+        Renderer renderer = new UnicodeRenderer();
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w, w, w, w},
@@ -89,7 +94,9 @@ public class RendererTest {
                 {w, p, p, p, p, w},
                 {w, p, p, p, p, w},
                 {w, w, w, w, w, w},
-            }
+            },
+            new Coordinate(1,1),
+            new Coordinate(1, 1)
         );
         String expectedRender =
             """
@@ -110,7 +117,7 @@ public class RendererTest {
     @Test
     void unicodeRendererWithPathTest() {
         // Arrange
-        Renderer renderer = new PrettyRenderer(true);
+        Renderer renderer = new UnicodeRenderer();
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w, w, w, w},
@@ -118,7 +125,9 @@ public class RendererTest {
                 {w, p, p, p, p, w},
                 {w, p, p, p, p, w},
                 {w, w, w, w, w, w},
-            }
+            },
+            new Coordinate(1,1),
+            new Coordinate(1, 1)
         );
         List<Coordinate> path = List.of(
             new Coordinate(1, 1),

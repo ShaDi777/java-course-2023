@@ -29,14 +29,16 @@ public class SolverTest {
 
     @ParameterizedTest
     @MethodSource("paramSolver")
-    void Solver_ShouldFindPath_WhenOnlyOneCell(Solver solver) {
+    void solver_ShouldFindPath_WhenOnlyOneCell(Solver solver) {
         // Arrange
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w},
                 {w, p, w},
                 {w, w, w},
-            }
+            },
+            new Coordinate(1, 1),
+            new Coordinate(1, 1)
         );
 
         Coordinate start = new Coordinate(1, 1);
@@ -54,14 +56,16 @@ public class SolverTest {
 
     @ParameterizedTest
     @MethodSource("paramSolver")
-    void Solver_ShouldFindPath_WhenOnlyOneWayPossible(Solver solver) {
+    void solver_ShouldFindPath_WhenOnlyOneWayPossible(Solver solver) {
         // Arrange
         Maze maze = new Maze(
             new Cell[][] {
                 {w, w, w, w, w, w},
                 {w, p, p, p, p, w},
                 {w, w, w, w, w, w},
-            }
+            },
+            new Coordinate(1, 1),
+            new Coordinate(1, 4)
         );
 
         Coordinate start = new Coordinate(1, 1);
@@ -82,7 +86,7 @@ public class SolverTest {
 
     @ParameterizedTest
     @MethodSource("paramSolver")
-    void Solver_ShouldNotFindPath_WhenNoPathPossible(Solver solver) {
+    void solver_ShouldNotFindPath_WhenNoPathPossible(Solver solver) {
         // Arrange
         Maze maze = new Maze(
             new Cell[][] {
@@ -90,7 +94,9 @@ public class SolverTest {
                 {w, p,  w, p, w},
                 {w, p,  w, p, w},
                 {w, w,  w, w, w},
-            }
+            },
+            new Coordinate(1, 1),
+            new Coordinate(2, 3)
         );
 
         Coordinate start = new Coordinate(1, 1);
@@ -106,14 +112,16 @@ public class SolverTest {
 
     @ParameterizedTest
     @MethodSource("paramSolver")
-    void Solver_ShouldThrow_WhenWrongEndpoints(Solver solver) {
+    void solver_ShouldThrow_WhenWrongEndpoints(Solver solver) {
         // Arrange
         Maze maze = new Maze(
             new Cell[][] {
-                {w, w,  w, w, w},
-                {w, p,  p, p, w},
-                {w, w,  w, w, w},
-            }
+                {w, w, w, w, w},
+                {w, p, p, p, w},
+                {w, w, w, w, w},
+            },
+            new Coordinate(1, 1),
+            new Coordinate(1, 3)
         );
 
         Coordinate startNormal = new Coordinate(1, 1);
@@ -134,7 +142,7 @@ public class SolverTest {
     }
 
     @Test
-    void BfsSolver_ShouldFindShortestPath_WhenTwoPathsPossible() {
+    void bfsSolver_ShouldFindShortestPath_WhenTwoPathsPossible() {
         // Arrange
         Maze maze = new Maze(
             new Cell[][] {
@@ -143,7 +151,9 @@ public class SolverTest {
                 {w, w, p, w, p, p, w},
                 {w, w, p, p, p, w, w},
                 {w, w, w, w, w, w, w},
-            }
+            },
+            new Coordinate(1, 1),
+            new Coordinate(1, 1)
         );
 
         Coordinate start = new Coordinate(1, 1);
