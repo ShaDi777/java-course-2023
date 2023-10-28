@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Task5Test {
+public class Task05Test {
     private final static Animal male = new Animal("Cat", Animal.Type.CAT, Animal.Sex.M, 1, 1, 1, true);
     private final static Animal female = new Animal("Cat", Animal.Type.CAT, Animal.Sex.F, 1, 1, 1, true);
 
