@@ -4,9 +4,14 @@ import edu.hw4.Animal;
 
 public class WeightAnimalValidator implements AnimalValidator {
     @Override
+    public ValidationError getError() {
+        return new ValidationError("weight", "Weight can't be negative");
+    }
+
+    @Override
     public ValidationError validate(Animal animal) {
         if (animal.weight() < 0) {
-            return new ValidationError("weight", "Weight can't be negative");
+            return getError();
         }
         return null;
     }

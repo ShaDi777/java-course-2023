@@ -17,6 +17,11 @@ public class Task2Test {
     private static Stream<Arguments> paramsListOfAnimalsWithAnswer() {
         return Stream.of(
             Arguments.of(
+                null, 10,
+                List.of()
+            ),
+
+            Arguments.of(
                 List.of(), 10,
                 List.of()
             ),

@@ -4,9 +4,14 @@ import edu.hw4.Animal;
 
 public class NameAnimalValidator implements AnimalValidator {
     @Override
+    public ValidationError getError() {
+        return new ValidationError("name", "Name can't be empty");
+    }
+
+    @Override
     public ValidationError validate(Animal animal) {
         if (animal.name().isBlank() || animal.name().isEmpty()) {
-            return new ValidationError("name", "Name can't be empty");
+            return getError();
         }
         return null;
     }

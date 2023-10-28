@@ -4,9 +4,14 @@ import edu.hw4.Animal;
 
 public class HeightAnimalValidator implements AnimalValidator {
     @Override
+    public ValidationError getError() {
+        return new ValidationError("height", "Height can't be negative");
+    }
+
+    @Override
     public ValidationError validate(Animal animal) {
         if (animal.height() < 0) {
-            return new ValidationError("height", "Height can't be negative");
+            return getError();
         }
         return null;
     }

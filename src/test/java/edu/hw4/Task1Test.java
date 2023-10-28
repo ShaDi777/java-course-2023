@@ -18,21 +18,30 @@ public class Task1Test {
     private static Stream<Arguments> paramsListOfAnimalsWithAnswer() {
         return Stream.of(
             Arguments.of(
+                null,
+                List.of()
+            ),
+
+            Arguments.of(
                 List.of(),
                 List.of()
             ),
+
             Arguments.of(
                 List.of(fish1),
                 List.of(fish1)
             ),
+
             Arguments.of(
                 List.of(spider15, bird5, cat10, fish1),
                 List.of(fish1, bird5, cat10, spider15)
             ),
+
             Arguments.of(
                 List.of(spider15, bird5, cat15, bird5, dog15, bird5),
                 List.of(bird5, bird5, bird5, spider15, cat15, dog15)
             ),
+
             Arguments.of(
                 List.of(spider15, cat15, dog15),
                 List.of(spider15, cat15, dog15)
