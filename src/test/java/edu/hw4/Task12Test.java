@@ -44,7 +44,7 @@ public class Task12Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalWeightMoreThanHeight")
     void countAnimalWeightMoreThanHeightTest(List<Animal> animals, Long expectedResult) {
-        var result = StreamApiTasks.task12_CountAnimalWeightMoreThanHeight(animals);
+        var result = StreamApiTasks.countAnimalWeightMoreThanHeight(animals);
 
         assertThat(result).isEqualTo(expectedResult);
     }

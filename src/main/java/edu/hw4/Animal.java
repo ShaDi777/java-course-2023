@@ -16,21 +16,29 @@ public record Animal(
     boolean bites
 ) {
     public enum Type {
-        CAT, DOG, BIRD, FISH, SPIDER
+        CAT(4),
+        DOG(4),
+        BIRD(2),
+        FISH(0),
+        SPIDER(8);
+
+        private final int paws;
+
+        Type(int paws) {
+            this.paws = paws;
+        }
+
+        int getPaws() {
+            return paws;
+        }
     }
 
     public enum Sex {
         M, F
     }
 
-    @SuppressWarnings("checkstyle:MagicNumber")
     public int paws() {
-        return switch (type) {
-            case CAT, DOG -> 4;
-            case BIRD -> 2;
-            case FISH -> 0;
-            case SPIDER -> 8;
-        };
+        return type.getPaws();
     }
 
     public Set<ValidationError> doValidation(Collection<AnimalValidator> collection) {

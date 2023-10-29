@@ -19,23 +19,8 @@ public class Task07Test {
     private static Stream<Arguments> paramsAnimalKthAged() {
         return Stream.of(
             Arguments.of(
-                null, 1,
-                null
-            ),
-
-            Arguments.of(
-                List.of(), 5,
-                null
-            ),
-
-            Arguments.of(
                 List.of(age1), 1,
                 age1
-            ),
-
-            Arguments.of(
-                List.of(age1), 2,
-                null
             ),
 
             Arguments.of(
@@ -63,7 +48,7 @@ public class Task07Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalKthAged")
     void KthAnimalAgeTest(List<Animal> animals, int k, Animal expectedResult) {
-        var animal = StreamApiTasks.task7_KthEldestAnimal(animals, k);
+        var animal = StreamApiTasks.kthEldestAnimal(animals, k);
 
         assertThat(animal).isEqualTo(expectedResult);
     }

@@ -20,16 +20,6 @@ public class Task18Test {
     private static Stream<Arguments> paramsHeaviestFishInTwoOrMoreLists() {
         return Stream.of(
             Arguments.of(
-                null,
-                null
-            ),
-
-            Arguments.of(
-                List.of(),
-                null
-            ),
-
-            Arguments.of(
                 List.of(
                     List.of(cat, dog),
                     List.of(cat, dog, fish1kg),
@@ -52,7 +42,7 @@ public class Task18Test {
     @ParameterizedTest
     @MethodSource("paramsHeaviestFishInTwoOrMoreLists")
     void heaviestFishInTwoOrMoreListsTest(List<List<Animal>> animalsLists, Animal expectedResult) {
-        var result = StreamApiTasks.task18_HeaviestFishInTwoOrMoreLists(animalsLists);
+        var result = StreamApiTasks.getHeaviestFishInTwoOrMoreLists(animalsLists);
 
         assertThat(result).isEqualTo(expectedResult);
     }
@@ -66,7 +56,7 @@ public class Task18Test {
         List<Animal> list5 = List.of(fish15kg, fish15kg, fish15kg);
         List<Animal> list6 = List.of(cat, dog, spider);
 
-        var result = StreamApiTasks.task18_HeaviestFish(list1, list2, list3, list4, list5, list6);
+        var result = StreamApiTasks.getHeaviestFish(list1, list2, list3, list4, list5, list6);
 
         assertThat(result).isEqualTo(fish15kg);
     }

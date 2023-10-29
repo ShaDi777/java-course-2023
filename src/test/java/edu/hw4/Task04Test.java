@@ -18,16 +18,6 @@ public class Task04Test {
     private static Stream<Arguments> paramsAnimalsWithLongestNames() {
         return Stream.of(
             Arguments.of(
-                null,
-                null
-            ),
-
-            Arguments.of(
-                List.of(),
-                null
-            ),
-
-            Arguments.of(
                 List.of(name1),
                 name1
             ),
@@ -52,7 +42,7 @@ public class Task04Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalsWithLongestNames")
     void animalWithLongestNameTest(List<Animal> animals, Animal expectedResult) {
-        var animal = StreamApiTasks.task4_FindAnimalWithLongestName(animals);
+        var animal = StreamApiTasks.findAnimalWithLongestName(animals);
 
         assertThat(animal).isEqualTo(expectedResult);
     }

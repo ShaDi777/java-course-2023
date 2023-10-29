@@ -54,7 +54,7 @@ public class Task16Test {
     @ParameterizedTest
     @MethodSource("paramsSortByTypeSexName")
     void sortByTypeSexNameTest(List<Animal> animals, List<Animal> expectedResult) {
-        List<Animal> sortedAnimals = StreamApiTasks.task16_SortByTypeSexName(animals);
+        List<Animal> sortedAnimals = StreamApiTasks.sortByTypeSexName(animals);
 
         assertThat(sortedAnimals).isEqualTo(expectedResult);
     }

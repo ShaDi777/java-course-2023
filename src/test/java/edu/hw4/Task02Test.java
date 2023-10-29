@@ -47,7 +47,7 @@ public class Task02Test {
     @ParameterizedTest
     @MethodSource("paramsListOfAnimalsWithAnswer")
     void sortDescByWeightTest(List<Animal> animals, int k, List<Animal> expectedResult) {
-        List<Animal> sortedAnimals = StreamApiTasks.task2_SortByWeightDescAndChooseFirstK(animals, k);
+        List<Animal> sortedAnimals = StreamApiTasks.sortByWeightDescAndChooseFirstK(animals, k);
 
         assertThat(sortedAnimals).isEqualTo(expectedResult);
     }

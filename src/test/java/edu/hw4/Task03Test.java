@@ -72,7 +72,7 @@ public class Task03Test {
     @ParameterizedTest
     @MethodSource("paramsListOfAnimalsWithFrequencyMap")
     void frequencyMapFromListTest(List<Animal> animals, Map<Animal.Type, Integer> expectedResult) {
-        var frequencyMap = StreamApiTasks.task3_TypeCountMap(animals);
+        var frequencyMap = StreamApiTasks.typeFrequencyMap(animals);
 
         assertThat(frequencyMap).isEqualTo(expectedResult);
     }

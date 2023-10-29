@@ -76,7 +76,7 @@ public class Task06Test {
     @ParameterizedTest
     @MethodSource("paramsMostHeavyInType")
     void mostHeavyAnimalsTest(List<Animal> animals, Map<Animal.Type, Animal> expectedResult) {
-        var animal = StreamApiTasks.task6_TypeMaxWeightAnimalMap(animals);
+        var animal = StreamApiTasks.typeMaxWeightAnimalMap(animals);
 
         assertThat(animal).isEqualTo(expectedResult);
     }

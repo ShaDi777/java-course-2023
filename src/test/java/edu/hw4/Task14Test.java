@@ -48,7 +48,7 @@ public class Task14Test {
     @ParameterizedTest
     @MethodSource("paramsContainsDogWithHigherThanKcm")
     void containsDogWithHigherThanKcmTest(List<Animal> animals, int k, Boolean expectedResult) {
-        var result = StreamApiTasks.task14_ContainsDogWithHigherThanKcm(animals, k);
+        var result = StreamApiTasks.containsDogWithHigherThanKcm(animals, k);
 
         assertThat(result).isEqualTo(expectedResult);
     }

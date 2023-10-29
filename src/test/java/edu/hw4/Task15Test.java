@@ -58,7 +58,7 @@ public class Task15Test {
     @ParameterizedTest
     @MethodSource("paramsTotalWeightOfAnimalsAgedFromKToL")
     void totalWeightOfAnimalsAgedFromKToLTest(List<Animal> animals, int k, int l, Integer expectedResult) {
-        var result = StreamApiTasks.task15_TotalWeightOfAnimalsAgedFromKToL(animals, k, l);
+        var result = StreamApiTasks.getTotalWeightOfAnimalsAgedFromKToL(animals, k, l);
 
         assertThat(result).isEqualTo(expectedResult);
     }

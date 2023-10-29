@@ -50,7 +50,7 @@ public class Task17Test {
     @ParameterizedTest
     @MethodSource("paramsDoSpidersBiteMoreThanDogs")
     void doSpidersBiteMoreThanDogsTest(List<Animal> animals, Boolean expectedResult) {
-        var result = StreamApiTasks.task17_DoSpidersBiteMoreThanDogs(animals);
+        var result = StreamApiTasks.doSpidersBiteMoreThanDogs(animals);
 
         assertThat(result).isEqualTo(expectedResult);
     }

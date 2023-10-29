@@ -10,6 +10,10 @@ public class NameAnimalValidator implements AnimalValidator {
 
     @Override
     public ValidationError validate(Animal animal) {
+        if (animal == null) {
+            return null;
+        }
+
         if (animal.name().isBlank() || animal.name().isEmpty()) {
             return getError();
         }

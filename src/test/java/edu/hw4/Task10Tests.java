@@ -78,7 +78,7 @@ public class Task10Tests {
     @ParameterizedTest
     @MethodSource("paramsAnimalsWithPawsCount")
     void listAnimalsAgeNotEqualsPawsTest(List<Animal> animals, List<Animal> expectedResult) {
-        var result = StreamApiTasks.task10_ListAnimalsAgeNotEqualsPaws(animals);
+        var result = StreamApiTasks.getListAnimalsAgeNotEqualsPaws(animals);
 
         assertThat(result).isEqualTo(expectedResult);
     }

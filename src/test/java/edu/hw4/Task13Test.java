@@ -52,7 +52,7 @@ public class Task13Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalsNameHasMoreThanTwoWords")
     void listAnimalsNameHasMoreThanTwoWordsTest(List<Animal> animals, List<Animal> expectedResult) {
-        var result = StreamApiTasks.task13_ListAnimalsNameHasMoreThanTwoWords(animals);
+        var result = StreamApiTasks.getListAnimalsNameHasMoreThanTwoWords(animals);
 
         assertThat(result).isEqualTo(expectedResult);
     }

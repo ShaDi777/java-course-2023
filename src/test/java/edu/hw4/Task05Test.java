@@ -48,7 +48,7 @@ public class Task05Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalsWithAnswer")
     void animalWithLongestNameTest(List<Animal> animals, Animal.Sex expectedResult) {
-        var animal = StreamApiTasks.task5_WhichAnimalsMore(animals);
+        var animal = StreamApiTasks.findWhichAnimalsMore(animals);
 
         assertThat(animal).isEqualTo(expectedResult);
     }

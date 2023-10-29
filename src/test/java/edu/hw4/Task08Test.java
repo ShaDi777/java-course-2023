@@ -64,7 +64,7 @@ public class Task08Test {
     @ParameterizedTest
     @MethodSource("paramsHeavyAnimalsBelowKcm")
     void maxWeightedAnimalAmongLowerThanKcmTest(List<Animal> animals, int k, Optional<Animal> expectedResult) {
-        var animal = StreamApiTasks.task8_MaxWeightedAnimalAmongLowerThanKcm(animals, k);
+        var animal = StreamApiTasks.maxWeightedAnimalAmongLowerThanKcm(animals, k);
 
         assertThat(animal).isEqualTo(expectedResult);
     }

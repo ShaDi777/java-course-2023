@@ -10,6 +10,10 @@ public class HeightAnimalValidator implements AnimalValidator {
 
     @Override
     public ValidationError validate(Animal animal) {
+        if (animal == null) {
+            return null;
+        }
+
         if (animal.height() < 0) {
             return getError();
         }

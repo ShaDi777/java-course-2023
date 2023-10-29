@@ -10,6 +10,10 @@ public class AgeAnimalValidator implements AnimalValidator {
 
     @Override
     public ValidationError validate(Animal animal) {
+        if (animal == null) {
+            return null;
+        }
+
         if (animal.age() < 0) {
             return getError();
         }

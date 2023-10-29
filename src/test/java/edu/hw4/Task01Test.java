@@ -52,7 +52,7 @@ public class Task01Test {
     @ParameterizedTest
     @MethodSource("paramsListOfAnimalsWithAnswer")
     void sortAscByHeightTest(List<Animal> animals, List<Animal> expectedResult) {
-        List<Animal> sortedAnimals = StreamApiTasks.task1_SortByHeightAsc(animals);
+        List<Animal> sortedAnimals = StreamApiTasks.sortByHeightAsc(animals);
 
         assertThat(sortedAnimals).isEqualTo(expectedResult);
     }

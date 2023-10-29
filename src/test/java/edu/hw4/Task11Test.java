@@ -56,7 +56,7 @@ public class Task11Test {
     @ParameterizedTest
     @MethodSource("paramsBigBitingAnimals")
     void listAnimalsBigAndBitesTest(List<Animal> animals, List<Animal> expectedResult) {
-        var result = StreamApiTasks.task11_ListAnimalsBigAndBites(animals);
+        var result = StreamApiTasks.getListAnimalsBigAndBites(animals);
 
         assertThat(result).isEqualTo(expectedResult);
     }

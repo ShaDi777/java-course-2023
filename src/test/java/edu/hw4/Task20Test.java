@@ -67,7 +67,7 @@ public class Task20Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalsWithErrorFields")
     void animalsWithErrorFieldsTest(List<Animal> animals, Map<String, String> expectedResult) {
-        var result = StreamApiTasks.task20_AnimalsWithErrorFields(animals, validators);
+        var result = StreamApiTasks.mapAnimalsWithErrorFields(animals, validators);
 
         assertThat(result).isEqualTo(expectedResult);
     }

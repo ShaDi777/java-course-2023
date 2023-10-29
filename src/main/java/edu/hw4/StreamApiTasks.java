@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -20,7 +21,7 @@ public final class StreamApiTasks {
     private StreamApiTasks() {
     }
 
-    public static List<Animal> task1_SortByHeightAsc(List<Animal> animals) {
+    public static List<Animal> sortByHeightAsc(List<Animal> animals) {
         if (animals == null) {
             return List.of();
         }
@@ -30,7 +31,7 @@ public final class StreamApiTasks {
             .toList();
     }
 
-    public static List<Animal> task2_SortByWeightDescAndChooseFirstK(List<Animal> animals, int k) {
+    public static List<Animal> sortByWeightDescAndChooseFirstK(List<Animal> animals, int k) {
         if (animals == null) {
             return List.of();
         }
@@ -41,7 +42,7 @@ public final class StreamApiTasks {
             .toList();
     }
 
-    public static Map<Animal.Type, Integer> task3_TypeCountMap(List<Animal> animals) {
+    public static Map<Animal.Type, Integer> typeFrequencyMap(List<Animal> animals) {
         if (animals == null) {
             return Map.of();
         }
@@ -55,17 +56,17 @@ public final class StreamApiTasks {
             );
     }
 
-    public static Animal task4_FindAnimalWithLongestName(List<Animal> animals) {
+    public static Animal findAnimalWithLongestName(List<Animal> animals) {
         if (animals == null) {
-            return null;
+            throw new NoSuchElementException();
         }
 
         return animals.stream()
             .max(Comparator.comparing(Animal::name, Comparator.comparingInt(String::length)))
-            .orElse(null);
+            .orElseThrow(NoSuchElementException::new);
     }
 
-    public static Animal.Sex task5_WhichAnimalsMore(List<Animal> animals) {
+    public static Animal.Sex findWhichAnimalsMore(List<Animal> animals) {
         if (animals == null) {
             return null;
         }
@@ -77,7 +78,7 @@ public final class StreamApiTasks {
             : males == females ? null : Animal.Sex.F;
     }
 
-    public static Map<Animal.Type, Animal> task6_TypeMaxWeightAnimalMap(List<Animal> animals) {
+    public static Map<Animal.Type, Animal> typeMaxWeightAnimalMap(List<Animal> animals) {
         if (animals == null) {
             return Map.of();
         }
@@ -92,17 +93,17 @@ public final class StreamApiTasks {
             );
     }
 
-    public static Animal task7_KthEldestAnimal(List<Animal> animals, int k) {
+    public static Animal kthEldestAnimal(List<Animal> animals, int k) {
         if (animals == null) {
-            return null;
+            throw new NoSuchElementException();
         }
 
         return animals.stream()
             .sorted(Comparator.comparing(Animal::age).reversed())
-            .skip(k - 1).findFirst().orElse(null);
+            .skip(k - 1).findFirst().orElseThrow(NoSuchElementException::new);
     }
 
-    public static Optional<Animal> task8_MaxWeightedAnimalAmongLowerThanKcm(List<Animal> animals, int k) {
+    public static Optional<Animal> maxWeightedAnimalAmongLowerThanKcm(List<Animal> animals, int k) {
         if (animals == null) {
             return Optional.empty();
         }
@@ -112,7 +113,7 @@ public final class StreamApiTasks {
             .max(Comparator.comparing(Animal::weight));
     }
 
-    public static Integer task9_TotalPaws(List<Animal> animals) {
+    public static Integer getTotalPaws(List<Animal> animals) {
         if (animals == null) {
             return 0;
         }
@@ -120,7 +121,7 @@ public final class StreamApiTasks {
         return animals.stream().mapToInt(Animal::paws).sum();
     }
 
-    public static List<Animal> task10_ListAnimalsAgeNotEqualsPaws(List<Animal> animals) {
+    public static List<Animal> getListAnimalsAgeNotEqualsPaws(List<Animal> animals) {
         if (animals == null) {
             return List.of();
         }
@@ -130,7 +131,7 @@ public final class StreamApiTasks {
 
     private static final int BIG_SIZE = 100;
 
-    public static List<Animal> task11_ListAnimalsBigAndBites(List<Animal> animals) {
+    public static List<Animal> getListAnimalsBigAndBites(List<Animal> animals) {
         if (animals == null) {
             return List.of();
         }
@@ -138,7 +139,7 @@ public final class StreamApiTasks {
         return animals.stream().filter(animal -> animal.bites() && animal.height() > BIG_SIZE).toList();
     }
 
-    public static Long task12_CountAnimalWeightMoreThanHeight(List<Animal> animals) {
+    public static Long countAnimalWeightMoreThanHeight(List<Animal> animals) {
         if (animals == null) {
             return 0L;
         }
@@ -146,7 +147,7 @@ public final class StreamApiTasks {
         return animals.stream().filter(animal -> animal.weight() > animal.height()).count();
     }
 
-    public static List<Animal> task13_ListAnimalsNameHasMoreThanTwoWords(List<Animal> animals) {
+    public static List<Animal> getListAnimalsNameHasMoreThanTwoWords(List<Animal> animals) {
         if (animals == null) {
             return List.of();
         }
@@ -154,7 +155,7 @@ public final class StreamApiTasks {
         return animals.stream().filter(animal -> animal.name().split(" ").length > 2).toList();
     }
 
-    public static Boolean task14_ContainsDogWithHigherThanKcm(List<Animal> animals, int k) {
+    public static Boolean containsDogWithHigherThanKcm(List<Animal> animals, int k) {
         if (animals == null) {
             return false;
         }
@@ -162,7 +163,7 @@ public final class StreamApiTasks {
         return animals.stream().anyMatch(animal -> animal.type() == Animal.Type.DOG && animal.height() > k);
     }
 
-    public static Integer task15_TotalWeightOfAnimalsAgedFromKToL(List<Animal> animals, int k, int l) {
+    public static Integer getTotalWeightOfAnimalsAgedFromKToL(List<Animal> animals, int k, int l) {
         if (animals == null) {
             return 0;
         }
@@ -170,7 +171,7 @@ public final class StreamApiTasks {
         return animals.stream().filter(animal -> k <= animal.age() && animal.age() <= l).mapToInt(Animal::weight).sum();
     }
 
-    public static List<Animal> task16_SortByTypeSexName(List<Animal> animals) {
+    public static List<Animal> sortByTypeSexName(List<Animal> animals) {
         if (animals == null) {
             return List.of();
         }
@@ -183,7 +184,7 @@ public final class StreamApiTasks {
             ).toList();
     }
 
-    public static Boolean task17_DoSpidersBiteMoreThanDogs(List<Animal> animals) {
+    public static Boolean doSpidersBiteMoreThanDogs(List<Animal> animals) {
         if (animals == null) {
             return false;
         }
@@ -193,7 +194,7 @@ public final class StreamApiTasks {
     }
 
     @SafeVarargs
-    public static Animal task18_HeaviestFish(
+    public static Animal getHeaviestFish(
         List<Animal> firstList,
         List<Animal> secondList,
         List<Animal>... otherLists
@@ -204,12 +205,13 @@ public final class StreamApiTasks {
         Stream<Animal> stream = Stream.concat(Stream.concat(firstStream, secondStream), otherStream);
 
         return stream.filter(animal -> animal.type() == Animal.Type.FISH)
-            .max(Comparator.comparing(Animal::weight)).orElse(null);
+            .max(Comparator.comparing(Animal::weight))
+            .orElseThrow(NoSuchElementException::new);
     }
 
-    public static Animal task18_HeaviestFishInTwoOrMoreLists(List<List<Animal>> animalsLists) {
+    public static Animal getHeaviestFishInTwoOrMoreLists(List<List<Animal>> animalsLists) {
         if (animalsLists == null) {
-            return null;
+            throw new NoSuchElementException();
         }
 
         return animalsLists.stream()
@@ -217,10 +219,11 @@ public final class StreamApiTasks {
                 .filter(animal -> animal.type() == Animal.Type.FISH)
                 .max(Comparator.comparing(Animal::weight)).orElse(null)
             ).filter(Objects::nonNull)
-            .max(Comparator.comparing(Animal::weight)).orElse(null);
+            .max(Comparator.comparing(Animal::weight))
+            .orElseThrow(NoSuchElementException::new);
     }
 
-    public static Map<String, Set<ValidationError>> task19_AnimalsWithErrors(
+    public static Map<String, Set<ValidationError>> mapAnimalsWithErrors(
         List<Animal> animals,
         List<AnimalValidator> validators
     ) {
@@ -238,7 +241,7 @@ public final class StreamApiTasks {
             );
     }
 
-    public static Map<String, String> task20_AnimalsWithErrorFields(
+    public static Map<String, String> mapAnimalsWithErrorFields(
         List<Animal> animals,
         List<AnimalValidator> validators
     ) {
@@ -246,7 +249,7 @@ public final class StreamApiTasks {
             return Map.of();
         }
 
-        return task19_AnimalsWithErrors(animals, validators)
+        return mapAnimalsWithErrors(animals, validators)
             .entrySet().stream().map(entry ->
                 Map.entry(
                     entry.getKey(),

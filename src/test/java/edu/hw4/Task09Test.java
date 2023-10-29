@@ -61,7 +61,7 @@ public class Task09Test {
     @ParameterizedTest
     @MethodSource("paramsAnimalsWithPawsCount")
     void totalPawsTest(List<Animal> animals, Integer expectedResult) {
-        var totalPaws = StreamApiTasks.task9_TotalPaws(animals);
+        var totalPaws = StreamApiTasks.getTotalPaws(animals);
 
         assertThat(totalPaws).isEqualTo(expectedResult);
     }
