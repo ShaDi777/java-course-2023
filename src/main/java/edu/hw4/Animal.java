@@ -45,7 +45,7 @@ public record Animal(
         Set<ValidationError> set = new HashSet<>();
         for (var validator : collection) {
             ValidationError error = validator.validate(this);
-            if (error != null) {
+            if (!error.equals(AnimalValidator.getSuccessResult())) {
                 set.add(error);
             }
         }

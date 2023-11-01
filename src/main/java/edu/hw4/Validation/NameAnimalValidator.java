@@ -11,12 +11,12 @@ public class NameAnimalValidator implements AnimalValidator {
     @Override
     public ValidationError validate(Animal animal) {
         if (animal == null) {
-            return null;
+            return getNullPointerError();
         }
 
         if (animal.name().isBlank() || animal.name().isEmpty()) {
             return getError();
         }
-        return null;
+        return AnimalValidator.getSuccessResult();
     }
 }

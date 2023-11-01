@@ -11,12 +11,12 @@ public class AgeAnimalValidator implements AnimalValidator {
     @Override
     public ValidationError validate(Animal animal) {
         if (animal == null) {
-            return null;
+            return getNullPointerError();
         }
 
         if (animal.age() < 0) {
             return getError();
         }
-        return null;
+        return AnimalValidator.getSuccessResult();
     }
 }
