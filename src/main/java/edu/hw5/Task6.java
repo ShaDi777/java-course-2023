@@ -10,6 +10,6 @@ public final class Task6 {
     public static boolean hasSubstring(String pattern, String string) {
         Pattern patternRegex = Pattern.compile(pattern);
         Matcher matcher = patternRegex.matcher(string);
-        return matcher.hasMatch();
+        return matcher.find();
     }
 }

@@ -12,6 +12,6 @@ public final class Task4 {
     public static boolean isValidPassword(String password) {
         Pattern specialCharsPattern = Pattern.compile(SPECIAL_CHARS_REGEX);
         Matcher matcher = specialCharsPattern.matcher(password);
-        return matcher.hasMatch();
+        return matcher.find();
     }
 }
