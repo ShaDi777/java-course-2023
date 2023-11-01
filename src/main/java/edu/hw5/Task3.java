@@ -1,5 +1,10 @@
 package edu.hw5;
 
+import edu.hw5.DateParsers.DateParser;
+import edu.hw5.DateParsers.RelativeDateParser;
+import edu.hw5.DateParsers.ShortDateParser;
+import edu.hw5.DateParsers.StandartDateParser;
+import edu.hw5.DateParsers.WordDateParser;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -8,17 +13,13 @@ public final class Task3 {
     }
 
     public static Optional<LocalDate> parseDate(String string) {
-        /*
-        2020-10-10
-        2020-12-2
-        1/3/1976
-        1/3/20
-        tomorrow
-        today
-        yesterday
-        1 day ago
-        2234 days ago
-        */
-        return Optional.empty();
+        DateParser head = DateParser.chain(
+            new StandartDateParser(),
+            new ShortDateParser(),
+            new WordDateParser(),
+            new RelativeDateParser()
+        );
+
+        return head.tryParse(string);
     }
 }

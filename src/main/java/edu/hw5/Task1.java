@@ -5,8 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public final class Task1 {
-    private final static String INPUT_TIME_REGEX =
-        "\\d\\d\\d\\d-\\d\\d-\\d\\d, \\d\\d:\\d\\d - \\d\\d\\d\\d-\\d\\d-\\d\\d, \\d\\d:\\d\\d";
+    private final static String SPLITTER = " - ";
+    private final static String TIME_REGEX = "\\d{4}-\\d{2}-\\d{2}, \\d{2}:\\d{2}";
+    private final static String INPUT_TIME_REGEX = TIME_REGEX + SPLITTER + TIME_REGEX;
 
     private Task1() {
     }
@@ -16,7 +17,7 @@ public final class Task1 {
             throw new IllegalArgumentException();
         }
 
-        String[] timeSplit = time.split(" - ");
+        String[] timeSplit = time.split(SPLITTER);
         String from = timeSplit[0];
         String to = timeSplit[1];
 
