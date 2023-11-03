@@ -35,6 +35,7 @@ public class Task4Test {
 
     private static Stream<Arguments> paramsInvalidPasswords() {
         return Stream.of(
+            Arguments.of((Object) null),
             Arguments.of(""),
             Arguments.of("abc"),
             Arguments.of("123"),

@@ -80,6 +80,10 @@ public class Task1Test {
 
     private static Stream<Arguments> paramsInvalidFormat() {
         return Stream.of(
+            Arguments.of((Object) null),
+
+            Arguments.of(""),
+
             Arguments.of("2022-03-12, 20:20"),
 
             Arguments.of("2022-03-12, 20:20 // 2022-03-12, 20:21"),

@@ -24,13 +24,13 @@ public class Task2Test {
     public void testGetAllFriday13thInYear(int year) {
         List<LocalDate> fridayThe13ths = Task2.getAllFriday13thInYear(year);
 
+        assertThat(fridayThe13ths.isEmpty()).isFalse();
+
         for (LocalDate date : fridayThe13ths) {
             assertThat(date.getDayOfWeek()).isEqualTo(DayOfWeek.FRIDAY);
             assertThat(date.getDayOfMonth()).isEqualTo(13);
             assertThat(date.getYear()).isEqualTo(year);
         }
-
-        assertThat(!fridayThe13ths.isEmpty()).isTrue();
     }
 
     @Test

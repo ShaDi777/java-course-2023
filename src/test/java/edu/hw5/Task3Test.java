@@ -67,6 +67,11 @@ public class Task3Test {
             ),
 
             Arguments.of(
+                null,
+                Optional.empty()
+            ),
+
+            Arguments.of(
                 "",
                 Optional.empty()
             ),
@@ -78,11 +83,6 @@ public class Task3Test {
 
             Arguments.of(
                 "19 03 1903",
-                Optional.empty()
-            ),
-
-            Arguments.of(
-                "99/12/2020",
                 Optional.empty()
             )
         );

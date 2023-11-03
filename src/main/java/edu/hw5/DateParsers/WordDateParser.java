@@ -7,6 +7,10 @@ public class WordDateParser extends DateParser {
 
     @Override
     public Optional<LocalDate> tryParse(String date) {
+        if (date == null) {
+            return Optional.empty();
+        }
+
         return switch (date.toLowerCase()) {
             case "today" -> Optional.of(LocalDate.now());
             case "tomorrow" -> Optional.of(LocalDate.now().plusDays(1));
