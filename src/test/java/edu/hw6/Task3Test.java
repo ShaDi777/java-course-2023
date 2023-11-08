@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static edu.hw6.AbstractFilter.globMatches;
 import static edu.hw6.AbstractFilter.largerThan;
@@ -37,10 +38,12 @@ public class Task3Test {
         AbstractFilter filter = Files::isRegularFile;
 
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(Path.of(TEST_DIRECTORY), filter)) {
-            assertThat(entries).containsExactly(
-                Path.of(TEST_DIRECTORY + "file"),
-                Path.of(TEST_DIRECTORY + "fileWithExtension.txt"),
-                Path.of(TEST_DIRECTORY + "linux.png")
+            assertThat(entries).hasSameElementsAs(
+                List.of(
+                    Path.of(TEST_DIRECTORY + "file"),
+                    Path.of(TEST_DIRECTORY + "fileWithExtension.txt"),
+                    Path.of(TEST_DIRECTORY + "linux.png")
+                )
             );
         } catch (IOException ignored) {
         }
