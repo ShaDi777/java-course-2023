@@ -19,7 +19,7 @@ public final class ArgumentParser {
             }
             switch (previousAction) {
                 case "--path":
-                    config.addPath(arg);
+                    config = config.withPath(arg);
                     break;
                 case "--from":
                     config = config.withFromDate(LocalDate.parse(arg));
