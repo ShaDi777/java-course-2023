@@ -19,8 +19,12 @@ public record Log(
     String httpReferer,
     String httpUserAgent
 ) {
-    private final static Pattern LOG_REGEX =
-        Pattern.compile("(.+?) - (.+?) \\[(.+?)] \"(.+?)\" (\\d+) (\\d+) \"(.+?)\" \"(.+?)\"");
+    private final static Pattern LOG_REGEX = Pattern.compile(
+            "(-|\\d+\\.\\d+\\.\\d+\\.\\d+) - "
+                + "(-|\\d+\\.\\d+\\.\\d+\\.\\d+) "
+                + "\\[(\\d{2}/[A-Z][a-z]{2}/\\d{4}:\\d{2}:\\d{2}:\\d{2} .+)] "
+                + "\"(.+?)\" (\\d+) (\\d+) \"(.+?)\" \"(.+?)\""
+        );
 
     @SuppressWarnings("checkstyle:MagicNumber")
     public static Log parse(String log) {
@@ -70,10 +74,10 @@ public record Log(
         dateString = dateString.replaceFirst("Dec", "12");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy:HH:mm:ss ");
         DateTimeFormatter dateOffsetFormat = new DateTimeFormatterBuilder()
-                            .parseCaseInsensitive()
-                            .append(dateFormat)
-                            .appendOffset("+HHMM", "+0000")
-                            .toFormatter();
+            .parseCaseInsensitive()
+            .append(dateFormat)
+            .appendOffset("+HHMM", "+0000")
+            .toFormatter();
         return OffsetDateTime.parse(dateString, dateOffsetFormat);
     }
 }

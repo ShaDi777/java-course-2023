@@ -1,11 +1,13 @@
 package edu.project3.services.Analyzers;
 
+import edu.project3.Constants;
 import edu.project3.entities.Log;
 import edu.project3.models.Configuration;
 import edu.project3.models.TableResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 public class GeneralInfoAnalyzer implements Analyzer {
     private final Configuration configuration;
@@ -21,36 +23,41 @@ public class GeneralInfoAnalyzer implements Analyzer {
         for (String file : files) {
             String fileName = file.substring(
                 Math.max(
-                    file.lastIndexOf('\\'),
-                    file.lastIndexOf('/')
+                    file.lastIndexOf(Constants.WINDOWS_FILE_SEPARATOR),
+                    file.lastIndexOf(Constants.UNIX_FILE_SEPARATOR)
                 ) + 1
             );
             tableResult.addRow(List.of(
                 "Files",
-                '`' + fileName + '`'
+                Constants.FILE_ANNOTATION + fileName + Constants.FILE_ANNOTATION
             ));
         }
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         tableResult.addRow(List.of(
             "Start date",
-            configuration.from() == LocalDate.MIN ? "-" : configuration.from().format(format)
+            configuration.from() == LocalDate.MIN
+                ? String.valueOf(Constants.SEPARATOR_HORIZONTAL)
+                : configuration.from().format(format)
         ));
         tableResult.addRow(List.of(
             "End date",
-            configuration.to() == LocalDate.MAX ? "-" : configuration.to().format(format)
+            configuration.to() == LocalDate.MAX
+                ? String.valueOf(Constants.SEPARATOR_HORIZONTAL)
+                : configuration.to().format(format)
         ));
         tableResult.addRow(List.of(
             "Requests amount",
-            String.valueOf(logs.size())
+            String.valueOf(logs.stream().filter(Objects::nonNull).count())
         ));
         tableResult.addRow(List.of(
             "Average body size",
             String.valueOf(
                 (long) logs.stream()
+                    .filter(Objects::nonNull)
                     .mapToLong(Log::bodyBytesSent)
                     .average()
                     .orElse(0)
-            ) + 'b'
+            ) + Constants.BYTES_SYMBOL
         ));
         return tableResult;
     }

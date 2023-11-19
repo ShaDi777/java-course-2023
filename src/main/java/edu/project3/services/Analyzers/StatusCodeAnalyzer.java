@@ -4,6 +4,8 @@ import edu.project3.entities.Log;
 import edu.project3.models.TableResult;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class StatusCodeAnalyzer implements Analyzer {
@@ -86,12 +88,18 @@ public class StatusCodeAnalyzer implements Analyzer {
     @Override
     public TableResult doAnalysis(List<Log> logs) {
         TableResult tableResult = new TableResult("Status responses", List.of("Code", "Name", "Amount"));
-        Map<Integer, Integer> logGroups =
-            logs.stream().collect(Collectors.toMap(Log::status, (log -> 1), Integer::sum));
-        for (var statusWithAmount : logGroups.entrySet()
-                                    .stream()
-                                    .sorted((kv1, kv2) -> kv2.getValue() - kv1.getValue())
-                                    .toList()) {
+        Map<Integer, Integer> logGroups = logs.stream()
+            .filter(Objects::nonNull)
+            .collect(
+                Collectors.toMap(
+                    Log::status,
+                    (log -> 1),
+                    Integer::sum,
+                    TreeMap::new
+                )
+            );
+
+        for (var statusWithAmount : logGroups.entrySet()) {
             tableResult.addRow(
                 List.of(
                     statusWithAmount.getKey().toString(),
@@ -104,20 +112,19 @@ public class StatusCodeAnalyzer implements Analyzer {
         return tableResult;
     }
 
-    @SuppressWarnings("checkstyle:MagicNumber")
     private String getDescription(int status) {
-        String description = DESCRIPTION.getOrDefault(status, null);
-        if (description == null) {
-            description = switch (status % 100) {
-                case 1 -> "Informational";
-                case 2 -> "Success";
-                case 3 -> "Redirection";
-                case 4 -> "Client Error";
-                case 5 -> "Server Error";
-                default -> "Unknown";
-            };
-        }
+        return DESCRIPTION.getOrDefault(status, getDefaultDescription(status));
+    }
 
-        return description;
+    @SuppressWarnings("checkstyle:MagicNumber")
+    private String getDefaultDescription(int status) {
+        return switch (status % 100) {
+            case 1 -> "Informational";
+            case 2 -> "Success";
+            case 3 -> "Redirection";
+            case 4 -> "Client Error";
+            case 5 -> "Server Error";
+            default -> "Unknown";
+        };
     }
 }

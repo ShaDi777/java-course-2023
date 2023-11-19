@@ -13,8 +13,11 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class LogExtractor {
+    private final static Logger LOGGER = LogManager.getLogger();
     private static final int TIMEOUT_SEC = 15;
 
     private LogExtractor() {
@@ -28,7 +31,9 @@ public final class LogExtractor {
             for (String path : configuration.listFiles()) {
                 try {
                     logStrings.addAll(Files.readAllLines(Path.of(path)));
-                } catch (IOException ignored) { }
+                } catch (IOException e) {
+                    LOGGER.error(e.getMessage());
+                }
             }
         }
 
