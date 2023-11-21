@@ -8,7 +8,7 @@ public class IncreaseTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 10, 100, 10000})
     void countUntil(int n) throws InterruptedException {
-        ThreadIncreaser increaser = new ThreadIncreaser();
+        MultiThreadIncrease increaser = new MultiThreadIncrease();
         increaser.incrementUntil(n);
         assertThat(increaser.getCounter()).isEqualTo(n);
     }

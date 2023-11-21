@@ -2,15 +2,12 @@ package edu.hw7;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class ThreadIncreaser {
+public final class MultiThreadIncrease {
     private final AtomicInteger counter = new AtomicInteger(0);
 
-    public ThreadIncreaser() {
+    public MultiThreadIncrease() {
     }
 
-    // Напишите программу, в которой несколько потоков увеличивают общий счетчик на 1.
-    // Напишите тесты: убедитесь, что счетчик потокобезопасен и использует классы Atomic
-    // для исключения состояния гонки.
     public void incrementUntil(int n) throws InterruptedException {
         Thread thread1 = new Thread(() -> run(n / 2));
         Thread thread2 = new Thread(() -> run((n / 2) + (n % 2)));
