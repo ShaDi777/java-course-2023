@@ -1,9 +1,9 @@
 package edu.hw7;
 
-import edu.hw7.PersonFinder.Person;
-import edu.hw7.PersonFinder.PersonDatabase;
-import edu.hw7.PersonFinder.PersonDatabaseLocksImpl;
-import edu.hw7.PersonFinder.PersonDatabaseSynchronizedImpl;
+import edu.hw7.personfinder.Person;
+import edu.hw7.personfinder.PersonDatabase;
+import edu.hw7.personfinder.PersonDatabaseLocks;
+import edu.hw7.personfinder.PersonDatabaseSynchronized;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
@@ -15,9 +15,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PersonDatabaseTest {
     private static Stream<Arguments> paramsDatabases() {
         return Stream.of(
-            Arguments.of(new PersonDatabaseSynchronizedImpl()),
-            Arguments.of(new PersonDatabaseLocksImpl())
+            Arguments.of(new PersonDatabaseSynchronized()),
+            Arguments.of(new PersonDatabaseLocks())
         );
+    }
+
+    @ParameterizedTest
+    @MethodSource("paramsDatabases")
+    void findEverywhere(PersonDatabase database) {
+        Person p = new Person(1, "Ivan", "Russia", "7-999-123-45-67");
+
+        Thread threadWrite = new Thread(() -> database.add(p));
+        threadWrite.start();
+
+        List<Person> nameList = database.findByName(p.name());
+        List<Person> addressList = database.findByAddress(p.address());
+        List<Person> phoneList = database.findByPhone(p.phoneNumber());
+
+        assertThat(nameList).isEqualTo(addressList).isEqualTo(phoneList);
+    }
+
+    @ParameterizedTest
+    @MethodSource("paramsDatabases")
+    void findGuaranteed(PersonDatabase database) throws InterruptedException {
+        Person p = new Person(1, "Ivan", "Russia", "7-999-123-45-67");
+
+        Thread threadWrite = new Thread(() -> database.add(p));
+        threadWrite.start();
+        threadWrite.join();
+
+        List<Person> nameList = database.findByName(p.name());
+        List<Person> addressList = database.findByAddress(p.address());
+        List<Person> phoneList = database.findByPhone(p.phoneNumber());
+
+        assertThat(nameList).isEqualTo(addressList).isEqualTo(phoneList).contains(p);
     }
 
     @ParameterizedTest

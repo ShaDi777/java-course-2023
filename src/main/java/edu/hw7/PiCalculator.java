@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class PiCalculator {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final double CIRCLE_CENTER = 0.5;
     private static final double CIRCLE_RADIUS = 0.5;
     private static final int MONTE_CARLO_CONST = 4;
+    private static final int THREAD_AMOUNT = Runtime.getRuntime().availableProcessors();
 
     private PiCalculator() {
     }
@@ -34,14 +38,14 @@ public final class PiCalculator {
                 totalCircleCount += thread.totalCircleCount;
             }
         } catch (InterruptedException e) {
-            LogManager.getLogger().error(e);
+            LOGGER.error(e);
         }
 
         return (double) MONTE_CARLO_CONST * totalCircleCount / totalDots;
     }
 
     public double multiThread(int totalDots) {
-        return multiThread(totalDots, 2);
+        return multiThread(totalDots, THREAD_AMOUNT);
     }
 
     private static int simulate(int totalDots) {

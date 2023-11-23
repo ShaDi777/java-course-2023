@@ -1,8 +1,20 @@
 package edu.hw7;
 
 import java.text.DecimalFormat;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PiCalculatorTest {
+    @Test
+    void getApproximatePiSingleThread() {
+        assertEquals(Math.PI, PiCalculator.singleThread(10000), 0.3);
+    }
+
+    @Test
+    void getApproximatePiMultiThread() {
+        assertEquals(Math.PI, PiCalculator.multiThread(100000, Runtime.getRuntime().availableProcessors()), 0.3);
+    }
+
     /*
     LOCAL TESTS:
 
@@ -50,7 +62,7 @@ public class PiCalculatorTest {
         // doFullComparison(10_000, 50);
         // doFullComparison(100_000, 50);
         // doFullComparison(1_000_000, 50);
-        doFullComparison(10_000_000, 50);
+        // doFullComparison(10_000_000, 50);
     }
 
     private static void doFullComparison(int totalDots, int simulationCount) {
@@ -73,20 +85,21 @@ public class PiCalculatorTest {
             }
             avgPI /= simulationCount;
             avgTime /= 10;
-            if (threadCount == 1)
+            if (threadCount == 1) {
                 singleThreadTime = avgTime;
+            }
 
             DecimalFormat df = new DecimalFormat("###.##");
             System.out.println(
-                    "With " + threadCount + " threads. " +
+                "With " + threadCount + " threads. " +
                     "Relative error = " + df.format(100 * Math.abs(Math.PI - avgPI) / Math.PI) + "%. " +
                     "Time = " + avgTime + " nanoseconds. " +
                     (
                         (threadCount != 1)
-                        ? (singleThreadTime > avgTime
+                            ? (singleThreadTime > avgTime
                             ? df.format((double) singleThreadTime / avgTime) + " times faster."
                             : df.format((double) avgTime / singleThreadTime) + " times slower.")
-                        : ""
+                            : ""
                     )
             );
         }

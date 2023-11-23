@@ -1,26 +1,24 @@
-package edu.hw7.PersonFinder;
+package edu.hw7.personfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PersonDatabaseSynchronizedImpl implements PersonDatabase {
-    private final Map<Integer, Person> database = new HashMap<>();
-    private final Map<String, List<Person>> nameMap = new HashMap<>();
-    private final Map<String, List<Person>> addressMap = new HashMap<>();
-    private final Map<String, List<Person>> phoneMap = new HashMap<>();
+public abstract class PersonDatabaseBase implements PersonDatabase {
+    protected final Map<Integer, Person> database = new HashMap<>();
+    protected final Map<String, List<Person>> nameMap = new HashMap<>();
+    protected final Map<String, List<Person>> addressMap = new HashMap<>();
+    protected final Map<String, List<Person>> phoneMap = new HashMap<>();
 
-    @Override
-    public synchronized void add(Person person) {
+    protected void baseAdd(Person person) {
         nameMap.computeIfAbsent(person.name(), k -> new ArrayList<>()).add(person);
         addressMap.computeIfAbsent(person.address(), k -> new ArrayList<>()).add(person);
         phoneMap.computeIfAbsent(person.phoneNumber(), k -> new ArrayList<>()).add(person);
         database.put(person.id(), person);
     }
 
-    @Override
-    public synchronized void delete(int id) {
+    protected void baseDelete(int id) {
         Person deleted = database.remove(id);
         if (deleted != null) {
             nameMap.get(deleted.name()).remove(deleted);
@@ -29,18 +27,15 @@ public class PersonDatabaseSynchronizedImpl implements PersonDatabase {
         }
     }
 
-    @Override
-    public synchronized List<Person> findByName(String name) {
+    protected List<Person> baseFindByName(String name) {
         return nameMap.getOrDefault(name, List.of());
     }
 
-    @Override
-    public synchronized List<Person> findByAddress(String address) {
+    protected List<Person> baseFindByAddress(String address) {
         return addressMap.getOrDefault(address, List.of());
     }
 
-    @Override
-    public synchronized List<Person> findByPhone(String phone) {
+    protected List<Person> baseFindByPhone(String phone) {
         return phoneMap.getOrDefault(phone, List.of());
     }
 }

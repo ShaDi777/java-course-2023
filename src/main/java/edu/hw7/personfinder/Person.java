@@ -1,9 +1,9 @@
-package edu.hw7.PersonFinder;
+package edu.hw7.personfinder;
 
 import org.jetbrains.annotations.NotNull;
 
 public record Person(
-    int id,
+    @NotNull Integer id,
     @NotNull String name,
     @NotNull String address,
     @NotNull String phoneNumber) {

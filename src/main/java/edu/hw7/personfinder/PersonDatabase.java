@@ -1,4 +1,4 @@
-package edu.hw7.PersonFinder;
+package edu.hw7.personfinder;
 
 import java.util.List;
 
