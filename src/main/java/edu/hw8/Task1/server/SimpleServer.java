@@ -19,7 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class SimpleServer implements Server {
     private final QuoteStorage quoteStorage;
     private final ThreadPoolExecutor threadPool;
-    private boolean isRunning = false;
+    private volatile boolean isRunning = false;
 
     public SimpleServer(int maxClients, QuoteStorage quoteStorage) {
         this.quoteStorage = quoteStorage;

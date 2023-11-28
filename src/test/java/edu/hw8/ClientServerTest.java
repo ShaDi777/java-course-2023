@@ -4,6 +4,8 @@ import edu.hw8.Task1.client.SimpleClient;
 import edu.hw8.Task1.server.SimpleServer;
 import edu.hw8.Task1.storage.QuoteStorage;
 import edu.hw8.Task1.storage.SimpleQuoteStorage;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -18,42 +20,26 @@ public class ClientServerTest {
         SimpleServer server = new SimpleServer(5, storage);
         new Thread(server, "SERVER_CHECK").start();
 
-        Thread client1 = new Thread(() -> {
-            try {
-                runClient();
-            } catch (AssertionError e) {
-                exception.set(e);
-            }
-        });
-        client1.start();
-
-        Thread client2 = new Thread(() -> {
-            try {
-                runClient();
-            } catch (AssertionError e) {
-                exception.set(e);
-            }
-        });
-        client2.start();
-
-        Thread client3 = new Thread(() -> {
-            try {
-                runClient();
-            } catch (AssertionError e) {
-                exception.set(e);
-            }
-        });
-        client3.start();
-
-        client1.join();
-        client2.join();
-        client3.join();
-
-        server.stop();
-
+        int clientCount = 3;
+        CountDownLatch counter = new CountDownLatch(clientCount);
+        for (int i = 0; i < clientCount; i++) {
+            Thread client = new Thread(() -> {
+                try {
+                    runClient();
+                    counter.countDown();
+                } catch (AssertionError e) {
+                    exception.set(e);
+                }
+            });
+            client.start();
+        }
+        boolean isSuccess = counter.await(1L, TimeUnit.MINUTES);
+        assertThat(isSuccess).isTrue();
         if (exception.get() != null) {
             throw exception.get();
         }
+
+        server.stop();
     }
 
     private void runClient() {
