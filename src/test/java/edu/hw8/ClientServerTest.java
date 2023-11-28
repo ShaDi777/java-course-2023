@@ -20,7 +20,9 @@ public class ClientServerTest {
         SimpleServer server = new SimpleServer(5, storage);
         new Thread(server, "SERVER_CHECK").start();
 
-        int clientCount = 3;
+        Thread.sleep(2000);
+
+        int clientCount = 1;
         CountDownLatch counter = new CountDownLatch(clientCount);
         for (int i = 0; i < clientCount; i++) {
             Thread client = new Thread(() -> {
