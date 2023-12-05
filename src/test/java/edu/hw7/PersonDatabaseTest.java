@@ -57,7 +57,7 @@ public class PersonDatabaseTest {
         Person p1 = new Person(1, "Ivan", "Russia", "7-999-123-45-67");
 
         for (int i = 0; i < 5000; i++) {
-            PersonDatabase database = template;
+            PersonDatabase database = i % 2 == 0 ? new PersonDatabaseSynchronized() : new PersonDatabaseLocks();
 
             Thread threadWrite = new Thread(() -> database.add(p1));
             Thread threadDelete = new Thread(() -> database.delete(p1.id()));
