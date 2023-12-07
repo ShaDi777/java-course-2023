@@ -5,6 +5,7 @@ import edu.project2.Exceptions.IllegalPathEndpointsException;
 import edu.project2.Models.Cell;
 import edu.project2.Models.Coordinate;
 import edu.project2.Services.Solvers.BfsSolver;
+import edu.project2.Services.Solvers.DfsParallelSolver;
 import edu.project2.Services.Solvers.DfsSolver;
 import edu.project2.Services.Solvers.Solver;
 import java.util.List;
@@ -23,7 +24,8 @@ public class SolverTest {
     private static Stream<Arguments> paramSolver() {
         return Stream.of(
             Arguments.of(new DfsSolver()),
-            Arguments.of(new BfsSolver())
+            Arguments.of(new BfsSolver()),
+            Arguments.of(new DfsParallelSolver())
         );
     }
 
