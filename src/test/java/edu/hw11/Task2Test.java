@@ -3,12 +3,15 @@ package edu.hw11;
 import java.util.stream.Stream;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
+import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Task2Test {
@@ -26,11 +29,19 @@ public class Task2Test {
     @ParameterizedTest
     @MethodSource("paramsRedefinition")
     void redefineMethodBehaviour(int a, int b, int sum, int mult) throws Exception {
-        ByteBuddyAgent.install();
+        var defaultAgent = ByteBuddyAgent.install();
+        var agent = new AgentBuilder.Default().type(ElementMatchers.is(ArithmeticUtils.class))
+            .transform(
+                (builder, typeDescription, classLoader, module, protectionDomain) ->
+                builder.method(named("sum"))
+                        .intercept(MethodDelegation.to(ArithmeticInterceptor.class))
+            )
+            .installOn(defaultAgent);
+
         try {
             new ByteBuddy()
-                .redefine(ArithmeticUtils.class)
-                .method(ElementMatchers.named("sum").and(ElementMatchers.returns(int.class)))
+                .redefine(ArithmeticUtils.class, ClassFileLocator.ForInstrumentation.fromInstalledAgent(ArithmeticUtils.class.getClassLoader()))
+                .method(named("sum").and(ElementMatchers.returns(int.class)))
                 .intercept(MethodDelegation.to(ArithmeticInterceptor.class))
                 .make()
                 .load(ArithmeticUtils.class.getClassLoader(), ClassReloadingStrategy.fromInstalledAgent());
