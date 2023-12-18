@@ -1,7 +1,6 @@
 package edu.project5;
 
 import java.lang.invoke.CallSite;
-import java.lang.invoke.LambdaConversionException;
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -23,11 +22,11 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
 
 /*
-Benchmark                              Mode  Cnt   Score   Error  Units
-ReflectionBenchmark.directAccess       avgt       11,508          ns/op
-ReflectionBenchmark.lambdaMetafactory  avgt       13,835          ns/op
-ReflectionBenchmark.methodHandles      avgt       12,442          ns/op
-ReflectionBenchmark.reflection         avgt       14,245          ns/op
+Benchmark                              Mode  Cnt  Score   Error  Units
+ReflectionBenchmark.directAccess       avgt       0,388          ns/op
+ReflectionBenchmark.lambdaMetafactory  avgt       0,523          ns/op
+ReflectionBenchmark.methodHandles      avgt       2,127          ns/op
+ReflectionBenchmark.reflection         avgt       4,249          ns/op
 */
 
 @State(Scope.Thread)
@@ -51,25 +50,21 @@ public class ReflectionBenchmark {
     }
 
     record Student(String name, String surname) {
-        public String prettyString() {
-            return "Student: " + name + " " + surname;
-        }
     }
 
     private Student student;
     private Method method;
     private MethodHandle methodHandle;
-    private CallSite site;
+    private Function<Student, String> lambdaFunction;
 
     @Setup
-    public void setup()
-        throws NoSuchMethodException, IllegalAccessException, NoSuchFieldException, LambdaConversionException {
-        student = new Student("Alexander", "Biryukov");
-        method = Student.class.getMethod("prettyString");
+    public void setup() throws Throwable {
+        student = new Student("Dmitry", "Shalanov");
+        method = Student.class.getMethod("name");
 
         final MethodHandles.Lookup lookup = MethodHandles.lookup();
-        methodHandle = lookup.findVirtual(Student.class, "prettyString", MethodType.methodType(String.class));
-        site = LambdaMetafactory.metafactory(
+        methodHandle = lookup.findVirtual(Student.class, "name", MethodType.methodType(String.class));
+        CallSite site = LambdaMetafactory.metafactory(
             lookup,
             "apply",
             MethodType.methodType(Function.class),
@@ -77,11 +72,12 @@ public class ReflectionBenchmark {
             methodHandle,
             methodHandle.type() // Person::getName signature
         );
+        lambdaFunction = (Function<Student, String>) site.getTarget().invokeExact();
     }
 
     @Benchmark
     public void directAccess(Blackhole bh) {
-        String name = student.prettyString();
+        String name = student.name();
         bh.consume(name);
     }
 
@@ -98,9 +94,8 @@ public class ReflectionBenchmark {
     }
 
     @Benchmark
-    public void lambdaMetafactory(Blackhole bh) throws Throwable {
-        Function<Student, String> function = (Function<Student, String>) site.getTarget().invokeExact();
-        String name = function.apply(student);
+    public void lambdaMetafactory(Blackhole bh) {
+        String name = lambdaFunction.apply(student);
         bh.consume(name);
     }
 }
