@@ -31,6 +31,11 @@ ReflectionBenchmark.reflection         avgt       4,249          ns/op
 
 @State(Scope.Thread)
 public class ReflectionBenchmark {
+    private static final String STUDENT_NAME = "Dmitry";
+    private static final String STUDENT_SURNAME = "Shalanov";
+    private static final String METHOD_NAME = "name";
+    private static final String METAFACTORY_METHOD_NAME = "apply";
+
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
             .include(ReflectionBenchmark.class.getSimpleName())
@@ -59,14 +64,14 @@ public class ReflectionBenchmark {
 
     @Setup
     public void setup() throws Throwable {
-        student = new Student("Dmitry", "Shalanov");
-        method = Student.class.getMethod("name");
+        student = new Student(STUDENT_NAME, STUDENT_SURNAME);
+        method = Student.class.getMethod(METHOD_NAME);
 
         final MethodHandles.Lookup lookup = MethodHandles.lookup();
-        methodHandle = lookup.findVirtual(Student.class, "name", MethodType.methodType(String.class));
+        methodHandle = lookup.findVirtual(Student.class, METHOD_NAME, MethodType.methodType(String.class));
         CallSite site = LambdaMetafactory.metafactory(
             lookup,
-            "apply",
+            METAFACTORY_METHOD_NAME,
             MethodType.methodType(Function.class),
             MethodType.methodType(Object.class, Object.class), // Function::apply signature
             methodHandle,
