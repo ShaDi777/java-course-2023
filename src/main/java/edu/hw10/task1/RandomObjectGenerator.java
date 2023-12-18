@@ -1,10 +1,7 @@
 package edu.hw10.task1;
 
-import edu.hw10.task1.generators.DoubleGenerator;
-import edu.hw10.task1.generators.FloatGenerator;
 import edu.hw10.task1.generators.Generator;
-import edu.hw10.task1.generators.IntGenerator;
-import edu.hw10.task1.generators.LongGenerator;
+import edu.hw10.task1.generators.NumericGenerator;
 import edu.hw10.task1.generators.StringGenerator;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
@@ -19,10 +16,7 @@ public class RandomObjectGenerator {
 
     public RandomObjectGenerator() {
         this.generatorChain = Generator.chain(
-            new IntGenerator(),
-            new LongGenerator(),
-            new FloatGenerator(),
-            new DoubleGenerator(),
+            new NumericGenerator(),
             new StringGenerator()
         );
     }
